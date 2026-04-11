@@ -21,3 +21,7 @@ cmake-build-*/
 CMakeFiles/
 CMakeCache.txt
 Makefile
+
+#docs
+log.md
+AGENT.md
