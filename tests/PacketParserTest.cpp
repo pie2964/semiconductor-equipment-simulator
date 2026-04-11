@@ -33,12 +33,21 @@ void testRejectInvalidPacket() {
     assert(!parsed.has_value());
 }
 
+void testParseAckPacket() {
+    const auto parsed = semisim::controller::comm::PacketParser::parsePacket("ACK:OK\n");
+
+    assert(parsed.has_value());
+    assert(parsed->type == semisim::protocol::MessageType::ACK);
+    assert(parsed->payload == "OK");
+}
+
 }  // namespace
 
 int main() {
     testBuildCommandPacket();
     testParseAlarmPacket();
     testRejectInvalidPacket();
+    testParseAckPacket();
 
     std::cout << "PacketParserTest passed.\n";
     return 0;

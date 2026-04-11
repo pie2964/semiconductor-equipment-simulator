@@ -1,9 +1,10 @@
-# Protocol Specification
+﻿# Protocol Specification
 
 ## Overview
 
 This project uses a simple string-based line protocol shared by Controller and Simulator.
 The goal in Step 1 is to keep the format human-readable and easy to test before TCP is introduced.
+In Step 2, the same packet format is transported over a single localhost TCP request/response exchange.
 
 ## Message Format
 
@@ -52,8 +53,15 @@ The parser accepts a packet with or without the final newline so local testing s
 - Reject packets without a payload
 - Interpret `STATE` and `ALARM` payloads through shared enum conversion helpers in `common/CommonTypes.hpp`
 
+## Step 2 TCP Usage
+
+- Controller sends one packet: `CMD:START\n`
+- Simulator parses the request and returns one packet: `ACK:OK\n`
+- Step 2 assumes a single request and a single response over localhost TCP
+
 ## Implementation Location
 
 - Shared protocol helpers: `common/Protocol.hpp`
 - Shared enum definitions: `common/CommonTypes.hpp`
 - Controller convenience wrapper: `controller/comm/PacketParser.hpp`, `controller/comm/PacketParser.cpp`
+- TCP transport skeleton: `controller/comm/TcpClient.*`, `simulator/comm/TcpServer.*`
