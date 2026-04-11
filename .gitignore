@@ -1,0 +1,23 @@
+# build outputs
+*.exe
+*.out
+*.o
+*.obj
+*.a
+*.lib
+*.dll
+
+# logs
+*.log
+*.tmp
+
+# vscode
+.vscode/
+.vs/
+
+# build dirs (future)
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+Makefile
