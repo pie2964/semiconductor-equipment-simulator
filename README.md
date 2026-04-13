@@ -1,21 +1,19 @@
-﻿## semiconductor-equipment-simulator
+<h2>semiconductor-equipment-simulator</h2>
+C++ 기반 반도체 장비 제어 소프트웨어 구조 모사 프로젝트
 
-C++ 기반 반도체 장비 제어/시뮬레이터 구조 학습 프로젝트입니다.
+<h2>프로젝트 목적</h2>
+장비처럼 동작하는 Simulator와 제어용 Controller 설계·구현 
+장비 제어 SW의 구조적 이해 목표
 
-## Step 2 범위
-
-- Controller는 TCP 클라이언트로 localhost 서버에 접속합니다.
-- Simulator는 TCP 서버로 포트 `5000`에서 1개 연결만 처리합니다.
-- Controller는 `CMD:START\n` 를 전송합니다.
-- Simulator는 이를 파싱한 뒤 `ACK:OK\n` 를 응답합니다.
 
 ## 실행 방법
 
-1. Simulator 실행 파일을 빌드합니다.
-2. Controller 실행 파일을 빌드합니다.
-3. 먼저 Simulator를 실행합니다.
-4. 그 다음 Controller를 실행합니다.
-5. Controller에서 `ACK:OK` 응답이 출력되면 Step 2 최소 통신이 성공한 것입니다.
+1. 루트에서 `build_step2.bat`  실행
+2. 또는 VS Code에서 `build-step2-all` 작업 실행
+3. Simulator 실행
+4. Controller 실행
+5. Controller에서 각 명령에 대한 `ACK:OK` 응답과 상태 로그 확인
+6. 허용되지 않은 명령은 Controller 로컬 검증 단계에서 거부되며, test에서는 마지막 `START`가 실패
 
 빌드 시 포함되어야 하는 주요 파일:
 
@@ -25,5 +23,5 @@ C++ 기반 반도체 장비 제어/시뮬레이터 구조 학습 프로젝트입
 
 ## 참고
 
-- 현재 구현은 Windows Winsock 기준입니다.
-- 멀티스레드, 재연결, 재시도, 상태머신 연동은 아직 포함하지 않습니다.
+- 현재 구현은 Windows Winsock 기준
+- 빌드는 C++17 기준이므로 `cl` 사용 시 `/std:c++17` 옵션이 필요
