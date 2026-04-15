@@ -1,4 +1,4 @@
-<h2>semiconductor-equipment-simulator</h2>
+﻿<h2>semiconductor-equipment-simulator</h2>
 C++ 기반 반도체 장비 제어 소프트웨어 구조 모사 프로젝트
 
 <h2>프로젝트 목적</h2>
@@ -8,12 +8,11 @@ C++ 기반 반도체 장비 제어 소프트웨어 구조 모사 프로젝트
 
 ## 실행 방법
 
-1. 루트에서 `build_step2.bat`  실행
-2. 또는 VS Code에서 `build-step2-all` 작업 실행
-3. Simulator 실행
-4. Controller 실행
-5. Controller에서 각 명령에 대한 `ACK:OK` 응답과 상태 로그 확인
-6. 허용되지 않은 명령은 Controller 로컬 검증 단계에서 거부되며, test에서는 마지막 `START`가 실패
+1. 루트에서 `build_step.bat`  실행 
+2. Simulator 실행
+3. Controller 실행
+4. Controller에서 각 명령에 대한 `ACK:OK` 응답과 상태 로그 확인
+5. 허용되지 않은 명령은 Controller 로컬 검증 단계에서 거부되며, test에서는 마지막 `START`가 실패
 
 빌드 시 포함되어야 하는 주요 파일:
 
