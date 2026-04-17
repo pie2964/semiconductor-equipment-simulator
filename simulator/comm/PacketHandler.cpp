@@ -4,8 +4,10 @@
 
 namespace semisim::simulator::comm {
 
-PacketHandler::PacketHandler(device::DeviceStateMachine& stateMachine)
-    : stateMachine_(stateMachine) {
+PacketHandler::PacketHandler(
+    device::DeviceStateMachine& stateMachine,
+    device::VirtualActuator& actuator)
+    : stateMachine_(stateMachine), actuator_(actuator) {
 }
 
 std::string PacketHandler::handlePacket(const std::string& rawPacket) {
@@ -20,6 +22,13 @@ std::string PacketHandler::handlePacket(const std::string& rawPacket) {
 
     if (!stateMachine_.applyCommand(message->payload)) {
         return protocol::makeAck("FAIL:INVALID_STATE");
+    }
+
+    if (message->payload == "START") {
+        actuator_.executeAction("HEAT");
+        actuator_.executeAction("GAS_ON");
+        actuator_.executeAction("GAS_OFF");
+        actuator_.executeAction("COOL_DOWN");
     }
 
     return protocol::makeAck("OK");

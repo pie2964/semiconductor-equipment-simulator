@@ -4,11 +4,13 @@
 #include "comm/PacketHandler.hpp"
 #include "comm/TcpServer.hpp"
 #include "device/DeviceStateMachine.hpp"
+#include "device/VirtualActuator.hpp"
 
 int main() {
     using semisim::simulator::comm::PacketHandler;
     using semisim::simulator::comm::TcpServer;
     using semisim::simulator::device::DeviceStateMachine;
+    using semisim::simulator::device::VirtualActuator;
 
     DeviceStateMachine stateMachine;
     if (!stateMachine.transitionTo(semisim::common::DeviceState::IDLE)) {
@@ -16,14 +18,15 @@ int main() {
         return 1;
     }
 
-    PacketHandler packetHandler(stateMachine);
+    VirtualActuator actuator;
+    PacketHandler packetHandler(stateMachine, actuator);
     const TcpServer server(5000);
 
     std::cout << "[Simulator] Initial state: "
               << semisim::common::toString(stateMachine.getCurrentState()) << "\n";
 
-    for (int i = 0; i < 3; ++i) {
-        std::cout << "[Simulator] Waiting for client request " << (i + 1) << "/3 on port 5000\n";
+    for (int i = 0; i < 2; ++i) {
+        std::cout << "[Simulator] Waiting for client request " << (i + 1) << "/2 on port 5000\n";
 
         const auto request = server.runOnce([&packetHandler, &stateMachine](const std::string& rawPacket) {
             const auto parsedMessage = semisim::protocol::parse(rawPacket);
@@ -47,7 +50,7 @@ int main() {
         }
     }
 
-    std::cout << "[Simulator] Finished Step 3 example flow\n";
+    std::cout << "[Simulator] Finished Step 4 example flow\n";
 
     return 0;
 }
