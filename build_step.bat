@@ -7,19 +7,23 @@ if errorlevel 1 goto :fail
 if not exist build mkdir build
 if not exist build\obj\tests mkdir build\obj\tests
 if not exist build\obj\state_tests mkdir build\obj\state_tests
+if not exist build\obj\recipe_tests mkdir build\obj\recipe_tests
 if not exist build\obj\simulator mkdir build\obj\simulator
 if not exist build\obj\controller mkdir build\obj\controller
 
 cl /std:c++17 /EHsc /I. /Fo"build\obj\tests\\" tests\PacketParserTest.cpp controller\comm\PacketParser.cpp /Fe:build\PacketParserTest.exe
 if errorlevel 1 goto :fail
 
-cl /std:c++17 /EHsc /I. /Fo"build\obj\state_tests\\" tests\StateMachineTest.cpp controller\core\StateMachine.cpp controller\core\CommandManager.cpp simulator\device\DeviceStateMachine.cpp /Fe:build\StateMachineTest.exe
+cl /std:c++17 /EHsc /I. /Fo"build\obj\state_tests\\" tests\StateMachineTest.cpp controller\core\CommandManager.cpp controller\core\RecipeExecutor.cpp controller\core\StateMachine.cpp simulator\device\DeviceStateMachine.cpp /Fe:build\StateMachineTest.exe
 if errorlevel 1 goto :fail
 
-cl /std:c++17 /EHsc /I. /Fo"build\obj\simulator\\" simulator\main.cpp simulator\comm\TcpServer.cpp simulator\comm\PacketHandler.cpp simulator\device\DeviceStateMachine.cpp /Fe:build\simulator.exe
+cl /std:c++17 /EHsc /I. /Fo"build\obj\recipe_tests\\" tests\RecipeTest.cpp controller\core\CommandManager.cpp controller\core\RecipeExecutor.cpp controller\core\StateMachine.cpp /Fe:build\RecipeTest.exe
 if errorlevel 1 goto :fail
 
-cl /std:c++17 /EHsc /I. /Fo"build\obj\controller\\" controller\main.cpp controller\comm\TcpClient.cpp controller\comm\PacketParser.cpp controller\core\StateMachine.cpp controller\core\CommandManager.cpp /Fe:build\controller.exe
+cl /std:c++17 /EHsc /I. /Fo"build\obj\simulator\\" simulator\main.cpp simulator\comm\TcpServer.cpp simulator\comm\PacketHandler.cpp simulator\device\DeviceStateMachine.cpp simulator\device\VirtualActuator.cpp /Fe:build\simulator.exe
+if errorlevel 1 goto :fail
+
+cl /std:c++17 /EHsc /I. /Fo"build\obj\controller\\" controller\main.cpp controller\comm\TcpClient.cpp controller\comm\PacketParser.cpp controller\core\CommandManager.cpp controller\core\RecipeExecutor.cpp controller\core\StateMachine.cpp /Fe:build\controller.exe
 if errorlevel 1 goto :fail
 
 echo Build completed successfully.
